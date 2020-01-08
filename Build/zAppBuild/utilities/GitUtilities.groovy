@@ -86,7 +86,7 @@ def getCurrentGitBranch(String gitDir) {
 
 	 StringBuffer gitStatus = new StringBuffer()
 	 StringBuffer gitError = new StringBuffer()
-	 Process process = ["git", "-C", $gitDir,"status"].execute()
+	 Process process = ["git", "-C", "${gitDir}","status"].execute()
 //	 Process process = cmd.execute()
 	 process.waitForProcessOutput(gitStatus, gitError)
 	 if (gitError) {
