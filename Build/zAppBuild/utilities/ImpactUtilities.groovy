@@ -290,6 +290,7 @@ def verifyCollections(RepositoryClient repositoryClient) {
 			}
 		}
 		else {
+			if (props.verbose) println "Attempting to create collection ${props.applicationOutputsCollectionName}"
 			repositoryClient.createCollection(props.applicationOutputsCollectionName)
 			if (props.verbose) println "** Created collection ${props.applicationOutputsCollectionName}"
 		}
