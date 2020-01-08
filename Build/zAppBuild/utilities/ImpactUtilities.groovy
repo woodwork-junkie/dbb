@@ -271,6 +271,7 @@ def verifyCollections(RepositoryClient repositoryClient) {
 			}
 		}
 		else {
+			if (props.verbose) println "Creating collection ${props.applicationCollectionName}"
 			repositoryClient.createCollection(props.applicationCollectionName)
 			if (props.verbose) println "** Created collection ${props.applicationCollectionName}"
 		}
