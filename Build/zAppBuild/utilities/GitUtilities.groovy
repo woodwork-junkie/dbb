@@ -11,7 +11,7 @@ import groovy.transform.*
  * @return boolean		
  */
 def isGitDir(String dir) {
-	String cmd = "git -C $dir rev-parse --is-inside-work-tree"
+	String cmd = "/rsusr/ported/libexec/git-core/git -C $dir rev-parse --is-inside-work-tree"
 	StringBuffer gitResponse = new StringBuffer()
 	StringBuffer gitError = new StringBuffer()
 	boolean isGit = false
@@ -35,7 +35,7 @@ def isGitDir(String dir) {
  * @return String gitBranch     The current Git branch
  */
 def getCurrentGitBranch(String gitDir) {
-	String cmd = "git -C $gitDir rev-parse --abbrev-ref HEAD"
+	String cmd = "/rsusr/ported/libexec/git-core/git -C $gitDir rev-parse --abbrev-ref HEAD"
 	StringBuffer gitBranch = new StringBuffer()
 	StringBuffer gitError = new StringBuffer()
 	
@@ -54,7 +54,7 @@ def getCurrentGitBranch(String gitDir) {
  * @return String gitBranch     The current Git branch
  */
  def getCurrentGitDetachedBranch(String gitDir) {
-	 String cmd = "git -C $gitDir show -s --pretty=%D HEAD"
+	 String cmd = "/rsusr/ported/libexec/git-core/git -C $gitDir show -s --pretty=%D HEAD"
 	 StringBuffer gitBranch = new StringBuffer()
 	 StringBuffer gitError = new StringBuffer()
 
@@ -82,12 +82,12 @@ def getCurrentGitBranch(String gitDir) {
  * @param  String gitDir  		Local Git repository directory
  */
  def isGitDetachedHEAD(String gitDir) {
-//	 String cmd = "git -C $gitDir status"
+	 String cmd = "/rsusr/ported/libexec/git-core/git -C $gitDir status"
 
 	 StringBuffer gitStatus = new StringBuffer()
 	 StringBuffer gitError = new StringBuffer()
-	 Process process = ["git", "-C", "${gitDir}","status"].execute()
-//	 Process process = cmd.execute()
+	 
+	 Process process = cmd.execute()
 	 process.waitForProcessOutput(gitStatus, gitError)
 	 if (gitError) {
 		 println("*! Error executing Git command: $cmd error $gitError")
@@ -103,7 +103,7 @@ def getCurrentGitBranch(String gitDir) {
  * @return String gitHash       The current Git hash
  */
 def getCurrentGitHash(String gitDir) {
-	String cmd = "git -C $gitDir rev-parse HEAD"
+	String cmd = "/rsusr/ported/libexec/git-core/git -C $gitDir rev-parse HEAD"
 	StringBuffer gitHash = new StringBuffer()
 	StringBuffer gitError = new StringBuffer()
 	
@@ -122,7 +122,7 @@ def getCurrentGitHash(String gitDir) {
  * @return String gitHash     The previous Git commit hash
  */
 def getPreviousGitHash(String gitDir) {
-	String cmd = "git -C $gitDir --no-pager log -n 1 --skip=1"
+	String cmd = "/rsusr/ported/libexec/git-core/git -C $gitDir --no-pager log -n 1 --skip=1"
 	StringBuffer gitStdout = new StringBuffer()
 	StringBuffer gitError = new StringBuffer()
 	
@@ -137,7 +137,7 @@ def getPreviousGitHash(String gitDir) {
 }
 
 def getChangedFiles(String gitDir, String baseHash, String currentHash) {
-	String cmd = "git -C $gitDir --no-pager diff --name-status $baseHash $currentHash"
+	String cmd = "/rsusr/ported/libexec/git-core/git -C $gitDir --no-pager diff --name-status $baseHash $currentHash"
 	def git_diff = new StringBuffer()
 	def git_error = new StringBuffer()
 	def changedFiles = []
