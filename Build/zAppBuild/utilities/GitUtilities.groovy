@@ -83,11 +83,11 @@ def getCurrentGitBranch(String gitDir) {
  */
  def isGitDetachedHEAD(String gitDir) {
 //	 String cmd = "git -C $gitDir status"
-	 Array cmd = ["git", "-C", $gitDir,"status"]
+
 	 StringBuffer gitStatus = new StringBuffer()
 	 StringBuffer gitError = new StringBuffer()
-
-	 Process process = cmd.execute()
+	 Process process = ["git", "-C", $gitDir,"status"].execute()
+//	 Process process = cmd.execute()
 	 process.waitForProcessOutput(gitStatus, gitError)
 	 if (gitError) {
 		 println("*! Error executing Git command: $cmd error $gitError")
